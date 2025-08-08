@@ -1,3 +1,4 @@
+import envConfig from '@/config';
 import mongoose from 'mongoose';
 
 let isConnected = false;
@@ -5,10 +6,10 @@ let isConnected = false;
 export const connectToDatabase = async (): Promise<void> => {
   if (isConnected) return;
 
-  if (!process.env.MONGODB_URI) throw new Error('MONGODB_URI not found');
+  if (!envConfig.MONGODB_URL) throw new Error('MONGODB_URI not found');
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(envConfig.MONGODB_URL, {
       dbName: 'Ucademy',
     });
 
