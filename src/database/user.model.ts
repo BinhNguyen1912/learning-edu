@@ -18,10 +18,12 @@ const UserSchema = new Schema<IUser>({
   cleckId: String,
   name: String,
   username: {
+    type: String,
     unique: true,
     required: true,
   },
   email: {
+    type: String,
     unique: true,
     required: true,
   },
