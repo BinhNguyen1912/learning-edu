@@ -7,8 +7,7 @@ export interface IUser extends Document {
   username: string;
   email: string;
   avatar: string;
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
   status: EUserStatus;
   role: EUserRole;
   courses: Types.ObjectId[];
@@ -28,11 +27,7 @@ const UserSchema = new Schema<IUser>({
     required: true,
   },
   avatar: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
+  created_at: {
     type: Date,
     default: Date.now,
   },

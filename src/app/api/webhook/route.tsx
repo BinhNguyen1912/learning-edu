@@ -4,13 +4,8 @@ import { WebhookEvent } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 import { CreateUser } from '@/lib/actions/user.action';
 import { headers } from 'next/headers';
-
+import envConfig from '@/config';
 export async function POST(req: Request) {
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
-  if (!WEBHOOK_SECRET) {
-    throw new Error('WEBHOOK_SECRET not set');
-  }
-
   const svix_id = headers().get('svix-id') ?? '';
   const svix_timestamp = headers().get('svix-timestamp') ?? '';
   const svix_signature = headers().get('svix-signature') ?? '';
@@ -20,10 +15,14 @@ export async function POST(req: Request) {
     return new Response('Bad Request', { status: 400 });
   }
 
-  const payload = await req.json();
+  if (!envConfig.WEBHOOK_SECRET) {
+    throw new Error('WEBHOOK_SECRET not set');
+  }
 
+  const payload = await req.json();
   const body = JSON.stringify(payload);
-  const svix = new Webhook(WEBHOOK_SECRET);
+
+  const svix = new Webhook(envConfig.WEBHOOK_SECRET);
 
   let evt: WebhookEvent;
 
@@ -40,6 +39,7 @@ export async function POST(req: Request) {
   }
 
   const eventType = evt.type;
+  console.log('POST ~ eventType', eventType);
 
   if (eventType === 'user.created') {
     const { id, email_addresses, username, image_url } = evt.data;
