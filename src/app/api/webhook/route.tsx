@@ -32,6 +32,7 @@ export async function POST(req: Request) {
       'svix-timestamp': svix_timestamp,
       'svix-signature': svix_signature,
     }) as WebhookEvent;
+
     console.log('✅ Webhook verified:', evt);
   } catch (err: any) {
     console.error('❌ Webhook verify failed:', err.message);
@@ -42,6 +43,7 @@ export async function POST(req: Request) {
   console.log('POST ~ eventType', eventType);
 
   if (eventType === 'user.created') {
+    //Create DB TO USER
     const { id, email_addresses, username, image_url } = evt.data;
 
     try {
