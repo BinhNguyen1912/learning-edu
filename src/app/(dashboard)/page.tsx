@@ -6,13 +6,13 @@ import { CreateUser } from '@/lib/actions/user.action';
 import React from 'react';
 
 export default async function Page() {
-  const user = await CreateUser({
-    cleckId: 'userId123',
-    email: 'ahihi111@gmail.com',
-    username: 'ahihi1',
-    name: 'ahihi1',
-    avatar: 'ahihi',
-  });
+  // const user = await CreateUser({
+  //   cleckId: 'userId123',
+  //   email: 'ahihi111@gmail.com',
+  //   username: 'ahihi1',
+  //   name: 'ahihi1',
+  //   avatar: 'ahihi',
+  // });
   console.log(
     envConfig.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     envConfig.WEBHOOK_SECRET
